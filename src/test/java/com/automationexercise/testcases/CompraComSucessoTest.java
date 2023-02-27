@@ -1,5 +1,6 @@
 package com.automationexercise.testcases;
 
+import com.automationexercise.steps.RegistraUsuarioStep;
 import com.automationexercise.utils.BaseTest;
 import com.automationexercise.utils.Property;
 import com.automationexercise.webdrivers.DriverManager;
@@ -12,5 +13,7 @@ public class CompraComSucessoTest extends BaseTest {
     public void compraComSucessoTest() {
         WebDriver driver = DriverManager.getDriver();
         driver.get(Property.get("url"));
+        RegistraUsuarioStep registraUsuarioStep = new RegistraUsuarioStep(driver);
+        registraUsuarioStep.efeturaLogin();
     }
 }

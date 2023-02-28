@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 
 public class CompraComSucessoTest extends BaseTest {
 
-    @Test
-    public void compraComSucessoTest() {
+    @Test(priority = 1)
+    public void criaNovoUmUsuarioEDeleteUsuarioTestCase() {
         WebDriver driver = DriverManager.getDriver();
         driver.get(Property.get("url"));
         RegistraUsuarioStep registraUsuarioStep = new RegistraUsuarioStep(driver);

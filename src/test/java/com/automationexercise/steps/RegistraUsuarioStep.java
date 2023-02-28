@@ -2,15 +2,18 @@ package com.automationexercise.steps;
 
 import com.automationexercise.pageobjects.RegistraUsuarioObject;
 import com.automationexercise.utils.JsExcutor;
+import com.automationexercise.utils.Report;
 import com.automationexercise.utils.Screenshot;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.service.ExtentTestManager;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class RegistraUsuarioStep {
     private final WebDriver driver;
     private final RegistraUsuarioObject registraUsuarioObject;
+    private final Faker faker = new Faker();
 
     public RegistraUsuarioStep(WebDriver _driver) {
         driver = _driver;
@@ -19,6 +22,7 @@ public class RegistraUsuarioStep {
 
     public RegistraUsuarioStep efeturaLogin() {
         acessaTelaDeLogin();
+        criaUmNovoUsuario();
         return this;
     }
 
@@ -32,6 +36,16 @@ public class RegistraUsuarioStep {
         }
         Assert.assertEquals(registraUsuarioObject.validadoTelaDeIndexLabel().getText(), "AutomationExercise");
         registraUsuarioObject.acessaTelaDeLoginButton().click();
+        Assert.assertEquals(registraUsuarioObject.visivelDeNewUserSignUpLabel().getText(), "New User Signup!");
+        return this;
+    }
+
+    private RegistraUsuarioStep criaUmNovoUsuario() {
+        ExtentTestManager.getTest().log(Status.INFO, "Acessa na tela de criar nova uma conta.");
+        registraUsuarioObject.nomeUmNovoUsuarioTextField().sendKeys(faker.name().name());
+        registraUsuarioObject.emailDoUsuarioTextField().sendKeys(faker.internet().emailAddress());
+        registraUsuarioObject.signupButton().click();
+        Assert.assertEquals(registraUsuarioObject.visivelDeEnterAccountInformationLabel().getText(), "ENTER ACCOUNT INFORMATION");
         return this;
     }
 }

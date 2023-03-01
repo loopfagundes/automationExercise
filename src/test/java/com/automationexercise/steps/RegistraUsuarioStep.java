@@ -2,7 +2,6 @@ package com.automationexercise.steps;
 
 import com.automationexercise.pageobjects.RegistraUsuarioObject;
 import com.automationexercise.utils.JsExcutor;
-import com.automationexercise.utils.Report;
 import com.automationexercise.utils.Screenshot;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.service.ExtentTestManager;

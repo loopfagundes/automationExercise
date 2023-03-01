@@ -41,4 +41,12 @@ public class RegistraUsuarioObject {
     public WebElement visivelDeEnterAccountInformationLabel() {
         return waitElement.visibilityOf(By.cssSelector("#form > div > div > div > div > h2 > b"));
     }
+
+    public WebElement generoDoUsuarioCheckBox() {
+        return waitElement.toBeClickable(By.id("id_gender1"));
+    }
+
+    public WebElement senhaDaContaDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("password"));
+    }
 }

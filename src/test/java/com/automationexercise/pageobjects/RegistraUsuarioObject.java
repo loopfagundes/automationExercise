@@ -4,6 +4,7 @@ import com.automationexercise.utils.WaitElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class RegistraUsuarioObject {
     private final WebDriver driver;
@@ -49,4 +50,84 @@ public class RegistraUsuarioObject {
     public WebElement senhaDaContaDoUsuarioTextField() {
         return waitElement.toBeClickable(By.id("password"));
     }
+
+    public Select diaDeNascimentoDoUsuarioComboBox() {
+        return new Select(driver.findElement(By.id("days")));
+    }
+
+    public Select mesDeNascimentoDoUsuarioComboBox() {
+        return new Select(driver.findElement(By.id("months")));
+    }
+
+    public Select anoDeNascimentoDoUsuarioComboBox() {
+        return new Select(driver.findElement(By.id("years")));
+    }
+
+    public WebElement signUpForOurNewSletterCheckBox() {
+        return waitElement.toBeClickable(By.id("newsletter"));
+    }
+
+    public WebElement receiveSpecialOffersFormOurPatnersCheckBox() {
+        return waitElement.toBeClickable(By.id("optin"));
+    }
+
+    public WebElement visivelDeInformarEnderecoLabel() {
+        return waitElement.visibilityOf(By.cssSelector("#form > div > div > div > div.login-form > form > h2 > b"));
+    }
+
+    public WebElement primeiroNomeDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("first_name"));
+    }
+
+    public WebElement sobreNomeDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("last_name"));
+    }
+
+    public WebElement empresaDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("company"));
+    }
+
+    public WebElement enderecoDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("address1"));
+    }
+
+    public Select paisDoUsuarioComboBox() {
+        return new Select(driver.findElement(By.id("country")));
+    }
+
+    public WebElement estadoDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("state"));
+    }
+
+    public WebElement cidadeDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("city"));
+    }
+
+    public WebElement cepDoEnderecoDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("zipcode"));
+    }
+
+    public WebElement numeroDeContatoDoUsuarioTextField() {
+        return waitElement.toBeClickable(By.id("mobile_number"));
+    }
+
+    public WebElement criaContaDoUsuarioButton() {
+        return waitElement.toBeClickable(By.cssSelector("#form > div > div > div > div.login-form > form > button"));
+    }
+
+    public WebElement visivelDeContaCriaLabel() {
+        return waitElement.visibilityOf(By.cssSelector("#form > div > div > div > h2 > b"));
+    }
+
+    public WebElement continuaButton() {
+        return waitElement.toBeClickable(By.cssSelector("#form > div > div > div > div > a"));
+    }
+
+//    public WebElement visivelUsuarioEstaLogadoLabel() {
+//        return waitElement.visibilityOf(By.cssSelector("#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(10) > a"));
+//    }
+
+//    public WebElement fechaAdsDoAnuncioButton() {
+//        return waitElement.toBeClickable(By.cssSelector("#dismiss-button > div > svg > path:nth-child(1)"));
+//    }
 }

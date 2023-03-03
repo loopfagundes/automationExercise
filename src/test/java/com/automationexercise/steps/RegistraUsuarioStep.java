@@ -23,24 +23,31 @@ public class RegistraUsuarioStep {
         telaDeIndex();
         telaDeLoginDoUsuario();
         criaUmaNovaContaDoUsuario();
+        validadoTelaDeCriaContaDoUsuario();
         return this;
     }
 
     private RegistraUsuarioStep telaDeIndex() {
-        ExtentTestManager.getTest().log(Status.INFO, "Acessa na tela de login.");
+        ExtentTestManager.getTest().log(Status.INFO, "A pagina da tela de index.");
         if (registraUsuarioObject.validadoTelaDeIndexLabel().isDisplayed()) {
-            ExtentTestManager.getTest().log(Status.PASS, "A pagina esta tela de login.");
+            ExtentTestManager.getTest().log(Status.PASS, "A pagina da tela de index esta correta.");
         } else {
             JsExcutor.highlight(driver, registraUsuarioObject.validadoTelaDeIndexLabel());
-            ExtentTestManager.getTest().log(Status.FAIL, "A pagina não esta correta.", Screenshot.capture());
+            ExtentTestManager.getTest().log(Status.FAIL, "A pagina de index não esta correta.", Screenshot.capture());
         }
         Assert.assertEquals(registraUsuarioObject.validadoTelaDeIndexLabel().getText(), "AutomationExercise");
-        registraUsuarioObject.acessaTelaDeLoginButton().click();
-        Assert.assertEquals(registraUsuarioObject.visivelDeNewUserSignUpLabel().getText(), "New User Signup!");
+        if (registraUsuarioObject.acessaTelaDeLoginButton().isDisplayed()) {
+            registraUsuarioObject.acessaTelaDeLoginButton().click();
+            ExtentTestManager.getTest().log(Status.PASS, "O botao para acessa na tela de login esta recebendo um clique.");
+        } else {
+            JsExcutor.highlight(driver, registraUsuarioObject.acessaTelaDeLoginButton());
+            ExtentTestManager.getTest().log(Status.FAIL, "O botao de acessa na tela de login nao esta recebendo um clique.", Screenshot.capture());
+        }
         return this;
     }
 
     private RegistraUsuarioStep telaDeLoginDoUsuario() {
+        Assert.assertEquals(registraUsuarioObject.visivelDeNewUserSignUpLabel().getText(), "New User Signup!");
         ExtentTestManager.getTest().log(Status.INFO, "Acessa na tela de criar nova uma conta.");
         if (registraUsuarioObject.visivelDeNewUserSignUpLabel().isDisplayed()) {
             ExtentTestManager.getTest().log(Status.PASS, "A pagina de meu login esta correta.");
@@ -52,14 +59,52 @@ public class RegistraUsuarioStep {
     }
 
     private RegistraUsuarioStep criaUmaNovaContaDoUsuario() {
-        registraUsuarioObject.nomeUmNovoUsuarioTextField().sendKeys(faker.name().name());
+        String nomeDoUsuario = faker.name().lastName();
+        String sobreNomeDoUsuario = faker.name().lastName();
+        registraUsuarioObject.nomeUmNovoUsuarioTextField().sendKeys(nomeDoUsuario);
         registraUsuarioObject.emailDoUsuarioTextField().sendKeys(faker.internet().emailAddress());
         registraUsuarioObject.signupButton().click();
         Assert.assertEquals(registraUsuarioObject.visivelDeEnterAccountInformationLabel().getText(), "ENTER ACCOUNT INFORMATION");
+        ExtentTestManager.getTest().log(Status.INFO, "A pagina da tela de criar novo um usuario para fazer registra.");
         registraUsuarioObject.generoDoUsuarioCheckBox().click();
         String senhaDoUsuario = faker.internet().password();
         registraUsuarioObject.senhaDaContaDoUsuarioTextField().sendKeys(senhaDoUsuario);
-        System.out.println("Senha: " + senhaDoUsuario);
+        registraUsuarioObject.diaDeNascimentoDoUsuarioComboBox().selectByValue("20");
+        registraUsuarioObject.mesDeNascimentoDoUsuarioComboBox().selectByValue("8");
+        registraUsuarioObject.anoDeNascimentoDoUsuarioComboBox().selectByValue("1990");
+        registraUsuarioObject.signUpForOurNewSletterCheckBox().click();
+        registraUsuarioObject.receiveSpecialOffersFormOurPatnersCheckBox().click();
+        Assert.assertEquals(registraUsuarioObject.visivelDeInformarEnderecoLabel().getText(), "ADDRESS INFORMATION");
+        registraUsuarioObject.primeiroNomeDoUsuarioTextField().sendKeys(nomeDoUsuario);
+        registraUsuarioObject.sobreNomeDoUsuarioTextField().sendKeys(sobreNomeDoUsuario);
+        registraUsuarioObject.empresaDoUsuarioTextField().sendKeys(faker.company().name());
+        registraUsuarioObject.enderecoDoUsuarioTextField().sendKeys(faker.address().fullAddress());
+        registraUsuarioObject.paisDoUsuarioComboBox().selectByValue("United States");
+        registraUsuarioObject.estadoDoUsuarioTextField().sendKeys(faker.address().state());
+        registraUsuarioObject.cidadeDoUsuarioTextField().sendKeys(faker.address().city());
+        registraUsuarioObject.cepDoEnderecoDoUsuarioTextField().sendKeys(faker.address().zipCode());
+        registraUsuarioObject.numeroDeContatoDoUsuarioTextField().sendKeys(faker.phoneNumber().cellPhone());
+        if (registraUsuarioObject.criaContaDoUsuarioButton().isDisplayed()) {
+            registraUsuarioObject.criaContaDoUsuarioButton().click();
+            ExtentTestManager.getTest().log(Status.PASS, "O botão de criar conta esta recebendo um clique.");
+        } else {
+            JsExcutor.highlight(driver, registraUsuarioObject.criaContaDoUsuarioButton());
+            ExtentTestManager.getTest().log(Status.FAIL, "O botão de criar conta não esta recebendo um clique.", Screenshot.capture());
+        }
+        return this;
+    }
+
+    private RegistraUsuarioStep validadoTelaDeCriaContaDoUsuario() {
+        Assert.assertEquals(registraUsuarioObject.visivelDeContaCriaLabel().getText(), "ACCOUNT CREATED!");
+        if (registraUsuarioObject.continuaButton().isDisplayed()) {
+            registraUsuarioObject.continuaButton().click();
+            ExtentTestManager.getTest().log(Status.PASS, "O botao de continua esta recebendo um clique.");
+        } else {
+            JsExcutor.highlight(driver, registraUsuarioObject.continuaButton());
+            ExtentTestManager.getTest().log(Status.FAIL, "O botao de continua nao esta recebendo um clique.", Screenshot.capture());
+        }
+//        System.out.println(registraUsuarioObject.visivelUsuarioEstaLogadoLabel().getText());
+//        registraUsuarioObject.fechaAdsDoAnuncioButton().click();
         return this;
     }
 }

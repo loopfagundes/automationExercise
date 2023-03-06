@@ -123,11 +123,21 @@ public class RegistraUsuarioObject {
         return waitElement.toBeClickable(By.cssSelector("#form > div > div > div > div > a"));
     }
 
-//    public WebElement visivelUsuarioEstaLogadoLabel() {
-//        return waitElement.visibilityOf(By.cssSelector("#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(10) > a"));
-//    }
+    public WebElement visivelAdLabel() {
+        WebElement iframeElement = driver.findElement(By.cssSelector("#aswift_1"));
+        WebDriver iframeDriver = driver.switchTo().frame(iframeElement);
+        return iframeDriver.findElement(By.cssSelector("#heading > div"));
+    }
 
-//    public WebElement fechaAdsDoAnuncioButton() {
-//        return waitElement.toBeClickable(By.cssSelector("#dismiss-button > div > svg > path:nth-child(1)"));
-//    }
+    public WebElement fechaAdButton() {
+        driver.switchTo().defaultContent();
+        WebElement iframeElement = driver.findElement(By.cssSelector("#aswift_1"));
+        WebDriver iframeDriver = driver.switchTo().frame(iframeElement);
+        return iframeDriver.findElement(By.cssSelector("#dismiss-button"));
+    }
+
+    public WebElement visivelUsuarioEstaLogadoLabel() {
+        driver.switchTo().defaultContent();
+        return waitElement.visibilityOf(By.cssSelector("#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(10) > a"));
+    }
 }

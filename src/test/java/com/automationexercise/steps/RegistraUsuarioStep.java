@@ -6,6 +6,7 @@ import com.automationexercise.utils.Screenshot;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.service.ExtentTestManager;
 import com.github.javafaker.Faker;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -23,6 +24,7 @@ public class RegistraUsuarioStep {
         telaDeIndex();
         telaDeLoginDoUsuario();
         criaUmaNovaContaDoUsuario();
+        informaDeEnderecoDoUsuario();
         validadoTelaDeCriaContaDoUsuario();
         return this;
     }
@@ -77,6 +79,10 @@ public class RegistraUsuarioStep {
         Assert.assertEquals(registraUsuarioObject.visivelDeInformarEnderecoLabel().getText(), "ADDRESS INFORMATION");
         registraUsuarioObject.primeiroNomeDoUsuarioTextField().sendKeys(nomeDoUsuario);
         registraUsuarioObject.sobreNomeDoUsuarioTextField().sendKeys(sobreNomeDoUsuario);
+        return this;
+    }
+
+    private RegistraUsuarioStep informaDeEnderecoDoUsuario() {
         registraUsuarioObject.empresaDoUsuarioTextField().sendKeys(faker.company().name());
         registraUsuarioObject.enderecoDoUsuarioTextField().sendKeys(faker.address().fullAddress());
         registraUsuarioObject.paisDoUsuarioComboBox().selectByValue("United States");
@@ -103,8 +109,9 @@ public class RegistraUsuarioStep {
             JsExcutor.highlight(driver, registraUsuarioObject.continuaButton());
             ExtentTestManager.getTest().log(Status.FAIL, "O botao de continua nao esta recebendo um clique.", Screenshot.capture());
         }
-//        System.out.println(registraUsuarioObject.visivelUsuarioEstaLogadoLabel().getText());
-//        registraUsuarioObject.fechaAdsDoAnuncioButton().click();
+        Assert.assertEquals(registraUsuarioObject.visivelAdLabel().getText(), "Ad");
+        registraUsuarioObject.fechaAdButton().click();
+        System.out.println(registraUsuarioObject.visivelUsuarioEstaLogadoLabel().getText());
         return this;
     }
 }
